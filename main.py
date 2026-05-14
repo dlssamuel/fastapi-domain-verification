@@ -23,6 +23,19 @@ import requests
 
 import dns.resolver
 
+from dotenv import load_dotenv 
+import os
+
+#Cargar variables del .env
+load_dotenv()
+
+#Obtener variable de Email
+email_user = os.getenv("EMAIL_USER")
+email_password = os.getenv("EMAIL_PASWORD")
+
+#Obtener variables Telegram
+telegram_token = os.getenv("TELEGRAM_TOKEN")
+telegram_chat_id = os.getenv("TELEGRAM_CHAT_ID")
 
 #Creamos la aplicacion FAstAPI
 app = FastAPI()
@@ -128,8 +141,8 @@ def recibir_formulario(
     
 
     ## Email desde donde se envia
-    correo_origen = "samudelos@gmail.com"
-    password = "pjpi uzhi bkpa kfnk"
+    correo_origen = email_user
+    password = email_password
 
     # Creamos un objeto email
     correo = EmailMessage()
@@ -307,8 +320,8 @@ def verificar_dns(datos: VerificarURL):
 
 def enviar_telegram(mensaje):
 
-    token = "8570044748:AAEJ4fYgz1zmveo4u9yfU5Ephb0w5-uiytg"
-    chat_id = "1267940979"
+    token = telegram_token
+    chat_id = telegram_chat_id
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
 
